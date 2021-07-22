@@ -77,7 +77,7 @@ user.select('compliment_funny').show(5)
 only showing top 5 rows
 ```
 
-The PySpark .filter() function can be used to filter lines based on a condition so we'll filter the "compliment_cool" column and set a condition with the .count() function to count all values with more than 10,000 votes.
+The PySpark .filter() function can be used to filter lines based on a condition so we'll filter the "compliment_funny" column and set a condition with the .count() function to count all values with more than 10,000 votes.
 
 ```python
 user.filter(user['compliment_cool'] >= 10000).count()
