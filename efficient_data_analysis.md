@@ -106,7 +106,7 @@ review.show(5)
 only showing top 5 rows
 ```
 
-For this particular example, we'll consider reviews with less than a three-star rating to be negative and use that information to find the top ten most useful reviews.
+For this particular example, we'll consider reviews with less than a three-star rating to be negative and use that information to find the most useful reviews.
 
 Begin by creating a table with negative reviews rate below three stars by using the .filter() function on the "stars" column.
 
@@ -116,7 +116,7 @@ negreviews = review.filter(review['stars'] < 3)
 
 Use .select() to pull the "stars", "useful", and "text" columns from our new negreviews table. The "useful" column gives us a score so that the highest scored reviews are considered to be most useful.
 
-Simply sort using the .short() function by "stars" then "useful" to get the text of the top ten reviews followed by .show() to view the output.
+Simply sort using the .short() function by "stars" then "useful" to get the text of the most useful reviews followed by .show() to view the output.
 
 ```python
 df = negreviews.select("stars","useful","text").sort("stars","useful","text",
