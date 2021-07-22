@@ -1,8 +1,11 @@
 # **Efficient Data Processing Using Spark DataFrames**
 
-Businesses want to get reviews on their goods and services but getting the review is not the issue. It's the ability to extract and visualize analytics from review data that is most critical to a business's success. Using Spark DataFrames, we will use the Yelp dataset to analyze business reviews. 
-A DataFrame is a Dataset organized into named columns. It is conceptually equivalent to a table in a relational database or a data frame in R/Python, but with richer optimizations under the hood. DataFrames can be constructed from a wide array of sources such as: structured data files, tables in Hive, external databases, or existing RDDs.
+Businesses want to get reviews on their goods and services but getting the review is not the issue. It’s the ability to extract and visualize analytics from review data that is most critical to a business’s success. For this tutorial, we’ll be using Spark DataFrames and the Yelp dataset to analyze business reviews.
 This link will take you to the data that we will be working with. Download the necessary files to follow along in this tutorial.
+
+## What is a DataFrame
+
+A DataFrame is a Dataset organized into named columns. It is conceptually equivalent to a table in a relational database or a data frame in R/Python, but with richer optimizations under the hood. DataFrames can be constructed from a wide array of sources such as: structured data files, tables in Hive, external databases, or existing RDDs.
 
 ## Setting up the notebook to begin working in Spark Core
 
