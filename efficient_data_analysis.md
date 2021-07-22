@@ -152,7 +152,7 @@ from pyspark.sql.functions import hour, desc
 from pyspark.sql.functions import trim,ltrim,rtrim
 ```
 
-Using the checkin data file, we can return an easily readable view of the DataFrame schema using the .printSchema() function to find the hour of the day in which most check-ins occur. We'll start with the two column names, "business_id" and "date", to find the information we need.
+Using the checkin data file, we can return an easily readable view of the DataFrame schema using the .printSchema() function to find the hour of the day in which the least check-ins occur. We'll start with the two column names, "business_id" and "date", to find the information we need.
 
 ```python
 checkin.printSchema()
@@ -236,41 +236,42 @@ df_hour_exploded.show()
 only showing top 20 rows
 ```
 
-To find the hour of the day with the most check-ins, the hour function can be used to extract the hours of a given date as an integer. The data needs to be trimmed of empty spaces so we'll use the trim function to trim the spaces from both ends for the string column. Then creating another alias with a column labeled "finaldates", we'll use .groupBy(), .count(), then .sort() to return a list of hours and their count in descending order to get the result we're looking for.
+To find the hour of the day with the least check-ins, the hour function can be used to extract the hours of a given date as an integer. The data needs to be trimmed of empty spaces so we'll use the trim function to trim the spaces from both ends for the string column. Then creating another alias with a column labeled "finaldates", we'll use .groupBy(), .count(), then .sort() to return a list of hours and their count in ascending order to get the result we're looking for.
 
 ```python
-df_hour2=df_hour_exploded.select(trim(df_hour_exploded['checkin_date']).alias('finaldates')).groupBy(hour('finaldates').alias('final')).count().sort("count",ascending=False).show(24)
+df_hour2=df_hour_exploded.select(trim(df_hour_exploded['checkin_date']).alias('finaldates')).groupBy(hour('finaldates').alias('final')).count().sort("count",ascending=True).show(24)
 
 +-----+-------+
 |final|  count|
 +-----+-------+
-|    1|1561788|
-|   19|1502271|
-|    0|1491176|
-|    2|1411255|
-|   20|1350195|
-|   23|1344117|
-|   18|1272108|
-|   22|1257437|
-|   21|1238808|
-|    3|1078939|
-|   17|1006102|
-|   16| 852076|
-|    4| 747453|
-|   15| 617830|
-|    5| 485129|
-|   14| 418340|
-|    6| 321764|
-|   13| 270145|
-|    7| 231417|
-|   12| 178910|
-|    8| 151065|
-|   11| 111769|
-|    9| 100568|
 |   10|  88486|
+|    9| 100568|
+|   11| 111769|
+|    8| 151065|
+|   12| 178910|
+|    7| 231417|
+|   13| 270145|
+|    6| 321764|
+|   14| 418340|
+|    5| 485129|
+|   15| 617830|
+|    4| 747453|
+|   16| 852076|
+|   17|1006102|
+|    3|1078939|
+|   21|1238808|
+|   22|1257437|
+|   18|1272108|
+|   23|1344117|
+|   20|1350195|
+|    2|1411255|
+|    0|1491176|
+|   19|1502271|
+|    1|1561788|
 +-----+-------+
-
 ```
+
+From what we can see in the return, 10 pm was ranked the least checked-in hour.
 
 ## Example 4 - Sentiment Analysis
 
