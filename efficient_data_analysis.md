@@ -166,13 +166,13 @@ root
 Next, we'll extract all dates from when someone checked in by using the .split() function on comma with the result of a list of strings.
 
 ```python
-datesplit = udf(lambda x: x.split(','),ArrayType(StringType()))
+split = udf(lambda x: x.split(','),ArrayType(StringType()))
 ```
 
-Using .select(), we'll return the "business_id" column, apply the datesplit function to the "date" column, then create a new .alias() column labeled "dates".
+Using .select(), we'll return the "business_id" column, apply the split function to the "date" column, then create a new .alias() column labeled "dates".
 
 ```python
-df_hour=checkin.select('business_id',datesplit('date').alias('dates'))
+df_hour=checkin.select('business_id',split('date').alias('dates'))
 df_hour.show()
 
 +--------------------+--------------------+
