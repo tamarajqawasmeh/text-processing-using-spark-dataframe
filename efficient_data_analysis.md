@@ -108,7 +108,7 @@ only showing top 5 rows
 
 For this particular example, we'll consider reviews with less than a three-star rating to be negative and use that information to find the most useful reviews.
 
-Begin by creating a table with negative reviews rate below three stars by using the .filter() function on the "stars" column.
+Begin by creating a table with only negative reviews rated below three stars by using the .filter() function on the "stars" column.
 
 ```python
 negreviews = review.filter(review['stars'] < 3)
