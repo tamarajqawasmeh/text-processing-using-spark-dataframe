@@ -317,9 +317,7 @@ def remove_punct(text):
     return nopunct
 ```
 
-The "stars" column must be relabelled so that any reviews with 4 stars or above will be positive, anything else is considered to be negative.
-This benchmark is based on a general consensus about Yelp reviews where people tend to overrate restaurants/businesses unless they feel strongly negatively about the place. We also remove punctuations and numbers before tokenizing the text.
-Reference
+The "stars" column must be relabelled so that any reviews with three stars or above will be positive, anything else is considered to be negative. We also remove punctuations and numbers before tokenizing the text.
 
 ```python
 # binarize rating
