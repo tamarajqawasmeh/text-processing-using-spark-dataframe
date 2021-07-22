@@ -43,7 +43,7 @@ from pyspark.sql.types import IntegerType
 from pyspark.sql.types import ArrayType,StringType
 ```
 
-Let's count how many users received more than 5,000 cool votes. We'll view the first five lines of the user data file using the .show() function to get a better view of the information that is available in the file such as column names and data format.
+Let's count how many users received more than 10,000 funny votes. We'll view the first five lines of the user data file using the .show() function to get a better view of the information that is available in the file such as column names and data format.
 
 ```python
 user.show(5)
@@ -60,32 +60,32 @@ user.show(5)
 only showing top 5 rows
 ```
 
-As we can see from using the .show() function, the data file contains a column labeled "compliment_cool". We'll use this column to pull the information we need. Let's take a look at what's in this column by using .select() then returning the first five lines using .show()
+As we can see from using the .show() function, the data file contains a column labeled "compliment_funny". We'll use this column to pull the information we need. Let's take a look at what's in this column by using .select() then returning the first five lines using .show()
 
 ```python
-user.select('compliment_cool').show(5)
+user.select('compliment_funny').show(5)
 
-+---------------+
-|compliment_cool|
-+---------------+
-|              1|
-|              1|
-|              0|
-|              0|
-|             80|
-+---------------+
++----------------+
+|compliment_funny|
++----------------+
+|               1|
+|               1|
+|               0|
+|               0|
+|              80|
++----------------+
 only showing top 5 rows
 ```
 
-The PySpark .filter() function can be used to filter lines based on a condition so we'll filter the "compliment_cool" column and set a condition with the .count() function to count all values with more than 5,000 votes.
+The PySpark .filter() function can be used to filter lines based on a condition so we'll filter the "compliment_cool" column and set a condition with the .count() function to count all values with more than 10,000 votes.
 
 ```python
-user.filter(user['compliment_cool'] >= 5000).count()
+user.filter(user['compliment_cool'] >= 10000).count()
 
-79
+22
 ```
 
-The output returned 79 users who received more than 5000 votes.
+The output returned 2 users who received more than 10,000 votes.
 
 ## Example 2
 
