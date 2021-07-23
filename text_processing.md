@@ -1,4 +1,4 @@
-# **Efficient Data Processing Using Spark DataFrames**
+# **Text Processing Using Spark DataFrames**
 
 Businesses want to get reviews on their goods and services but getting the review is not the issue. It’s the ability to extract and visualize analytics from review data that is most critical to a business’s success. For this tutorial, we’ll be using Spark DataFrames and the Yelp dataset to analyze business reviews.
 This link will take you to the data that we will be working with. Download the necessary files to follow along in this tutorial.
