@@ -444,14 +444,14 @@ only showing top 50 rows
 Since we're looking for the most used words from positive and negative reviews, creating two separate tables will be the best way to find unique words. Having labeled all positive reviews 1 and all negative reviews as 0, we can create a filter with a condition to pull rows from rows labeled as such.
 
 ```python
-pos=dfwords_exploded.filter(dfwords_exploded['label'] >= 1)
-neg=dfwords_exploded.filter(dfwords_exploded['label'] < 1)
+pos = dfwords_exploded.filter(dfwords_exploded['label'] >= 1)
+neg = dfwords_exploded.filter(dfwords_exploded['label'] < 1)
 ```
 
-Using .select(), .groupBy(), .count(), then .sort(), we can organize the most commonly used words in positive and negative reviews. This information isn't quite helpful since there is a lot of commonality between the tables. We are interested in unique words so we'll try a join technique next.
+Using .select(), .groupBy(), .count(), then .sort(), we can organize the most commonly used words in positive and negative reviews. This information isn't quite helpful since there is a lot of commonality between the tables. 
 
 ```python
-posdf=pos.select('words','label').groupBy("words",'label').count().sort("count",ascending=False)
+posdf = pos.select('words','label').groupBy("words",'label').count().sort("count",ascending=False)
 posdf.show(51)
 
 +----------+-----+--------+
@@ -513,7 +513,7 @@ only showing top 51 rows
 ```
 
 ```python
-negdf=neg.select('words','label').groupBy("words",'label').count().sort("count",ascending=False)
+negdf = neg.select('words','label').groupBy("words",'label').count().sort("count",ascending=False)
 negdf.show(51)
 
 +----------+-----+-------+
@@ -579,48 +579,14 @@ Create aliases for the two tables we're working with. The alias, like in SQL, al
 Reference
 
 ```python
-ta = posdf.alias('ta')
-tb = negdf.alias('tb')
-```
-
-An inner join is the default join type used. This joins two datasets on key columns, where keys don't match the rows get dropped from both datasets.
-
-```python
-inner_join = ta.join(tb, ta.words == tb.words)
-inner_join.show()
-
-+-------------+-----+-----+-------------+-----+-----+
-|        words|label|count|        words|label|count|
-+-------------+-----+-----+-------------+-----+-----+
-|        aaagh|    1|    3|        aaagh|    0|    2|
-|     abilityi|    1|    8|     abilityi|    0|    4|
-|  aboutdollar|    1|    1|  aboutdollar|    0|    1|
-| aboutfirstly|    1|    2| aboutfirstly|    0|    1|
-|   abouttoday|    1|    1|   abouttoday|    0|    3|
-|        abrio|    1|    1|        abrio|    0|    1|
-|   abruptness|    1|   16|   abruptness|    0|   29|
-|accelerationi|    1|    1|accelerationi|    0|    1|
-|      accthis|    1|    1|      accthis|    0|    1|
-| accumulation|    1|   88| accumulation|    0|   73|
-|accuratelybut|    1|    1|accuratelybut|    0|    1|
-|   achterbahn|    1|    8|   achterbahn|    0|    2|
-|      acidity|    1| 1899|      acidity|    0|  192|
-|   activewear|    1|   52|   activewear|    0|    3|
-| adequatethis|    1|    4| adequatethis|    0|    1|
-|      admitso|    1|    1|      admitso|    0|    2|
-|        adour|    1|    1|        adour|    0|    1|
-|   advancedwe|    1|    2|   advancedwe|    0|    1|
-|     aeroport|    1|   18|     aeroport|    0|   18|
-|     aerostar|    1|    1|     aerostar|    0|    1|
-+-------------+-----+-----+-------------+-----+-----+
-only showing top 20 rows
+postable = posdf.alias('postable')
+negtable = negdf.alias('negtable')
 ```
 
 Using a leftanti join returns only columns from the left dataset for non-matched words. This is how we'll return the most used unique words from the tables.
 
 ```python
-uniquepos =ta.join(inner_join, on='words', how='leftanti').sort("ta.count",ascending=False).show(50)
-uniqueneg =tb.join(inner_join, on='words', how='leftanti').sort("tb.count",ascending=False).show(50)
+uniquepos = postable.join(negtable, on='words', how='leftanti').sort("postable.count",ascending=False).show(50)
 
 +-------------------+-----+-----+
 |              words|label|count|
@@ -677,6 +643,10 @@ uniqueneg =tb.join(inner_join, on='words', how='leftanti').sort("tb.count",ascen
 |       deliciousill|    1|   80|
 +-------------------+-----+-----+
 only showing top 50 rows
+```
+
+```python
+uniqueneg = negtable.join(postable, on='words', how='leftanti').sort("negtable.count",ascending=False).show(50)
 
 +--------------------+-----+-----+
 |               words|label|count|
