@@ -738,5 +738,3 @@ only showing top 50 rows
 Both sets of words appear to be what is expected when looking at negative or positive reviews but there were some words such as "eloff" that were questionable. Why would this be the number 1 most common word used in positive reviews? After doing some research, it was clear that many users included the name "eloff" in their responses, which is the name of one of the most popular businesses in the dataset. All in all, this method works well to extract the most common words that are unique to positive and negative reviews.
 
 This post is a summary of the steps that yielded the best results for analyzing Yelp reviews.
-{"mode":"full","isActive":false}
-{"mode":"full","isActive":false}
