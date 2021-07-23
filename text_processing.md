@@ -307,7 +307,7 @@ review.cache()
 DataFrame[business_id: string, cool: bigint, date: string, funny: bigint, review_id: string, stars: double, text: string, useful: bigint, user_id: string]
 ```
 
-Pre-processing the reviews data
+Pre-processing the text data
 
 Let's find the most common words that are unique to positive and negative reviews. First, we need to clean the text of the reviews by removing any punctuation or numbers using the following function.
 
