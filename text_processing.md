@@ -164,7 +164,7 @@ from pyspark.sql.functions import hour, desc
 from pyspark.sql.functions import trim,ltrim,rtrim
 ```
 
-Using the checkin data file, we can return an easily readable view of the DataFrame schema using the .printSchema() function to find the hour of the day in which the least check-ins occur. We'll start with the two column names, "business_id" and "date", to find the information we need.
+Using the checkin data file, we can return an easily readable view of the DataFrame schema using the .printSchema() function to find out what time had the least check-ins. We'll start with two column names, "business_id" and "date", to find the information we need.
 
 ```python
 checkin.printSchema()
@@ -175,7 +175,7 @@ root
 
 ```
 
-Next, we'll extract all dates from when someone checked in by using the .split() function on comma with the result of a list of strings.
+Next, we'll extract check-in times using the .split() function on comma with the result of a list of strings.
 
 ```python
 split = udf(lambda x: x.split(','),ArrayType(StringType()))
@@ -248,7 +248,7 @@ df_hour_exploded.show()
 only showing top 20 rows
 ```
 
-To find the hour of the day with the least check-ins, the hour function can be used to extract the hours of a given date as an integer. The data needs to be trimmed of empty spaces so we'll use the trim function to trim the spaces from both ends for the string column. Then creating another alias with a column labeled "finaldates", we'll use .groupBy(), .count(), then .sort() to return a list of hours and their count in ascending order to get the result we're looking for.
+To find the time with the least check-ins, the hour function can be used to extract the hours of a given date as an integer. The data needs to be trimmed of empty spaces so we'll use the trim function to trim the spaces from both ends for the string column. Then creating another alias with a column labeled "finaldates", we'll use .groupBy(), .count(), then .sort() to return a list of hours and their count in ascending order to get the result we're looking for.
 
 ```python
 df_hour2=df_hour_exploded.select(trim(df_hour_exploded['checkin_date']).alias('finaldates')).groupBy(hour('finaldates').alias('final')).count().sort("count",ascending=True).show(24)
@@ -283,9 +283,9 @@ df_hour2=df_hour_exploded.select(trim(df_hour_exploded['checkin_date']).alias('f
 +-----+-------+
 ```
 
-From what we can see in the return, 10 pm was ranked the least checked-in hour.
+From what we can see in the return, 10 pm was had the lowest occurence of check-ins.
 
-## Example 4 - Sentiment Analysis
+## Example 4
 
 ```python
 Importing libraries and dependencies
@@ -441,7 +441,7 @@ dfwords_exploded.show(50)
 only showing top 50 rows
 ```
 
-Since we're looking for the top words from positive and negative reviews, creating two separate tables will be the best way to find unique words. Having labeled all positive reviews 1 and all negative reviews as 0, we can create a filter with a condition to pull rows from rows labeled as such.
+Since we're looking for the most used words from positive and negative reviews, creating two separate tables will be the best way to find unique words. Having labeled all positive reviews 1 and all negative reviews as 0, we can create a filter with a condition to pull rows from rows labeled as such.
 
 ```python
 pos=dfwords_exploded.filter(dfwords_exploded['label'] >= 1)
@@ -584,7 +584,6 @@ tb = negdf.alias('tb')
 ```
 
 An inner join is the default join type used. This joins two datasets on key columns, where keys don't match the rows get dropped from both datasets.
-Reference
 
 ```python
 inner_join = ta.join(tb, ta.words == tb.words)
@@ -617,7 +616,7 @@ inner_join.show()
 only showing top 20 rows
 ```
 
-Using a leftanti join returns only columns from the left dataset for non-matched words. This is how we'll return the top unique words from the tables.
+Using a leftanti join returns only columns from the left dataset for non-matched words. This is how we'll return the most used unique words from the tables.
 
 ```python
 uniquepos =ta.join(inner_join, on='words', how='leftanti').sort("ta.count",ascending=False).show(50)
