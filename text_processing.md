@@ -18,7 +18,7 @@ from pyspark.sql import SparkSession
 spark = SparkSession \
  .builder \
  .master("local[*]") \
- .appName('My First Spark application') \
+ .appName('spark app') \
  .getOrCreate()
 sc = spark.sparkContext
 ```
