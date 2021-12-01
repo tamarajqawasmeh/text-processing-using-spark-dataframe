@@ -25,6 +25,8 @@ sc = spark.sparkContext
 
 ## Assigning the data sets
 
+Link to datasets: https://www.kaggle.com/yelp-dataset/yelp-dataset
+
 ```python
 checkin = spark.read.json('yelp_academic_dataset_checkin.json')
 review = spark.read.json('yelp_academic_dataset_review.json')
